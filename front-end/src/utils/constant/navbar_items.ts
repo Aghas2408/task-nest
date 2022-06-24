@@ -1,14 +1,18 @@
 export const NAVBAR_ITEMS = [
   {
-    ref: "Guest",
+    href: "/guest",
+    name: "Guest",
   },
   {
-    ref: "User",
+    href: "/user",
+    name: "User",
   },
   {
-    ref: "Supervisor",
+    href: "/supervisor",
+    name: "Supervisor",
   },
   {
-    ref: "Admin",
+    href: "/admin",
+    name: "Admin",
   },
 ];
