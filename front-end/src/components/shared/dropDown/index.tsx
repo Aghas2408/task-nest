@@ -3,11 +3,16 @@ import { DropDownListProps } from "./types";
 
 import "./styles.scss";
 
-export default function DropDown({ dropDownItems }: any) {
+export default function DropDown({ dropDownItems, setSelectRole }: any) {
   const [isOpenDropDown, setIsOpenDropDown] = useState<Boolean>(false);
   const [selectedRole, setSelectedRole] = useState<String>("Select role");
 
   const dropItemsList = dropDownItems;
+
+  const handleSelectRole = (itemName: string) => {
+    setSelectRole(itemName);
+    setSelectedRole(itemName);
+  };
 
   return (
     <div
@@ -24,7 +29,7 @@ export default function DropDown({ dropDownItems }: any) {
         }}
       >
         {dropItemsList.map((dropItem: any, index: any) => (
-          <p key={index} onClick={() => setSelectedRole(dropItem.itemName)}>
+          <p key={index} onClick={() => handleSelectRole(dropItem.itemName)}>
             {dropItem.itemName}
           </p>
         ))}
