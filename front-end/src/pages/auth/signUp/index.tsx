@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import DropDown from "../../../components/shared/dropDown";
 import { DROP_DOWN_ITEMS } from "../../../utils/constant/drop_down_items";
 
@@ -9,10 +9,6 @@ export default function SignUp() {
     e.preventDefault();
   };
 
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredValue = event.target.value.trim();
-    setPassword(enteredValue);
-  };
   const [isValid, setIsValid] = useState(false);
   const [message, setMessage] = useState("");
   const emailRegex =
@@ -29,24 +25,37 @@ export default function SignUp() {
       setMessage("Please enter a valid email!");
     }
   };
-
-  const passValid = false;
-  const [passMessage, setPassMessage] = useState("");
-  const [password, setPassword] = useState<string>("");
+  const [isPassValid, setIsPassValid] = useState(false);
+  const passRegex =
+    /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,16}$/; /* eslint-disable-line */
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (password.length > 0 && password.length <= 7) {
+  const validatePass = (event: any) => {
+    const pass = event.target.value;
+    const isPassRegex = passRegex.test(pass);
+    if (isPassRegex) {
+      setIsPassValid(true);
+      setPassMessage("Password is correct");
       setIsButtonDisabled(true);
-      setPassMessage("Please enter more than 8 symbols!");
-    } else if (password.length <= 16) {
+    } else if (pass.length > 0 && pass.length <= 7) {
+      setIsPassValid(false);
+      setPassMessage(
+        "Must be 8 characters with at least numeric andalphabetic symbols"
+      );
       setIsButtonDisabled(false);
-      setPassMessage("");
+    } else if (pass.length >= 17) {
+      setIsPassValid(false);
+      setPassMessage(
+        "Must be not more than 16 characters with at least numeric andalphabetic symbols"
+      );
+      setIsButtonDisabled(false);
     } else {
-      setPassMessage("Please enter less than 16 symbols!");
-      setIsButtonDisabled(true);
+      setIsPassValid(false);
+      setPassMessage("Please enter a valid pass!");
+      setIsButtonDisabled(false);
     }
-  }, [password]);
+  };
+  const [passMessage, setPassMessage] = useState("");
 
   return (
     <div className="sign_up_container">
@@ -71,16 +80,20 @@ export default function SignUp() {
               type="text"
               id="passwords"
               placeholder="Enter password"
-              onChange={inputHandler}
+              onChange={validatePass}
             />
-            <p className={`message ${!passValid && "invalid_text"}`}>
+            <p
+              className={`message ${
+                isPassValid ? "passSuccess" : "invalid_text"
+              }`}
+            >
               {passMessage}
             </p>
           </label>
           <DropDown dropDownItems={DROP_DOWN_ITEMS} />
           <button
             disabled={isButtonDisabled}
-            className={isButtonDisabled ? "disabledButton" : "button"}
+            className={!isButtonDisabled ? "disabledButton" : "button"}
           >
             Submit
           </button>
