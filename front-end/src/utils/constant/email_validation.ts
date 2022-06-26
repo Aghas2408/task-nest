@@ -1,4 +1,5 @@
-const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegex =
+  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; /* eslint-disable-line */
 
 export const isEmailValidation = (value: string) => {
   const isEmailRegex = emailRegex.test(value);

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { DropDownListProps } from "./types";
 
 import "./styles.scss";
 
