@@ -3,7 +3,7 @@ services:
   dev-db:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: 'nest-task'
+      MYSQL_DATABASE: 'nest-test'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
