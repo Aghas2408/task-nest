@@ -1,5 +1,5 @@
 const passwordValidationRegexp =
-  /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,16}$/;
+/^(?=\S*[a-zA-Z])(?=\S*[0-9])\S{8,16}$/;
 
 export const isPasswordValidation = (value: string) => {
   const isValidPasswordMin = passwordValidationRegexp.test(value);

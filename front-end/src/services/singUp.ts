@@ -10,9 +10,6 @@ export const registerUser = (registerData: any) => {
       password: registerData.passwordValue,
       role: registerData.selectRole,
     },
-    headers: {
-      authorization: "your token comes here",
-    },
   })
     .then((res) => {
       console.log(res, "res");
