@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../services/singUp";
 import DropDown from "../../../components/shared/dropDown";
 import { DROP_DOWN_ITEMS } from "../../../utils/constant/drop_down_items";
@@ -17,6 +18,8 @@ export default function SignUp() {
   const [passwordValue, setPasswordValue] = useState<string>();
 
   const isButtonDisabled = isPassValid && isEmailValid && selectRole;
+
+  const navigate = useNavigate();
 
   // const register = (email: string, password: string, role: string) => {
   //   return new Promise(async (resolve, reject) => {
@@ -46,6 +49,7 @@ export default function SignUp() {
         selectRole,
       };
       registerUser(userData);
+      // navigate("/sign-in", { replace: true });
     }
   };
 
