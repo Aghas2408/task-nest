@@ -5,17 +5,21 @@ import "./styles.scss";
 
 export default function Navbar(): JSX.Element {
   const links = NAVBAR_ITEMS;
+  const accessToken = localStorage.getItem("accessToken");
+
   return (
     <div className="header_container">
-      <ul className="nav_items">
-        {links.map((item, index) => {
-          return (
-            <NavLink key={index} to={item.href}>
-              <li>{item.name}</li>
-            </NavLink>
-          );
-        })}
-      </ul>
+      {accessToken && (
+        <ul className="nav_items">
+          {links.map((item, index) => {
+            return (
+              <NavLink key={index} to={item.href}>
+                <li>{item.name}</li>
+              </NavLink>
+            );
+          })}
+        </ul>
+      )}
       <div className="sign_btn">
         <NavLink to="sign-in">
           <button>Sign In</button>
