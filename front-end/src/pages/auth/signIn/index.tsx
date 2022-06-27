@@ -26,6 +26,7 @@ export default function SignIn() {
         if (res && res.status === 200) {
           localStorage.setItem("accessToken", res.data);
           navigate("/guest", { replace: true });
+          window.location.reload();
         }
       });
     }

@@ -16,10 +16,12 @@ function App() {
           <Route path="user" element={<User />} />
           <Route path="supervisor" element={<Supervisor />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
         </Routes>
       </Layout>
+      <Routes>
+        <Route path="sign-in" element={<SignIn />} />
+        <Route path="sign-up" element={<SignUp />} />
+      </Routes>
     </BrowserRouter>
   );
 }
