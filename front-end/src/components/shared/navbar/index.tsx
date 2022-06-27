@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { NAVBAR_ITEMS } from "../../../utils/constant/navbar_items";
 
@@ -6,6 +7,12 @@ import "./styles.scss";
 export default function Navbar(): JSX.Element {
   const links = NAVBAR_ITEMS;
   const accessToken = localStorage.getItem("accessToken");
+
+  const accessTokenCurent = useRef<string | null>(null);
+
+  useEffect(() => {
+    accessTokenCurent.current = accessToken;
+  }, [accessToken]);
 
   return (
     <div className="header_container">
