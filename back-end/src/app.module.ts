@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
-import { RoleController } from './entities/role/role.controller';
 import { UserModule } from './entities/user/user.module';
 import { User } from './entities/user/users.entity';
 import { SocketGateway } from './web-socket/gateway/web-socket.gateway';
@@ -23,7 +22,7 @@ import { WebSocketModule } from './web-socket/web-socket.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_USER_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [User, RoleController],
+      entities: [User],
       synchronize: true,
     }),
     UserModule,
