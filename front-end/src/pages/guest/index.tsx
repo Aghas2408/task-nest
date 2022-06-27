@@ -1,3 +1,3 @@
 export default function Guest(): JSX.Element {
-  return <h1>You have access to geast role.</h1>;
+  return <h1>You have access to guest role.</h1>;
 }

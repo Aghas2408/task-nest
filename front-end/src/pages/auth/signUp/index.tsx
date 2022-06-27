@@ -21,25 +21,6 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
-  // const register = (email: string, password: string, role: string) => {
-  //   return new Promise(async (resolve, reject) => {
-  //     try {
-  //       const response = {
-  //         email,
-  //         password,
-  //         role,
-  //       };
-  //       if (response.status) {
-  //         const user = response.user;
-  //       } else {
-  //         return reject(response);
-  //       }
-  //     } catch (error) {
-  //       return reject(error);
-  //     }
-  //   });
-  // };
-
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isPassValid && isEmailValid && selectRole) {
@@ -48,8 +29,12 @@ export default function SignUp() {
         passwordValue,
         selectRole,
       };
-      registerUser(userData);
-      navigate("/sign-in", { replace: true });
+
+      registerUser(userData).then(res => {
+        if (res && res.status === 200) {
+          navigate("/sign-in", { replace: true });
+        }
+      });
     }
   };
 

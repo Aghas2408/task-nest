@@ -13,7 +13,7 @@ import { User, UserRole } from 'src/entities/user/users.entity';
 
 const options = {
   cors: {
-    origin: ['https://hoppscotch.io', 'https://localhost:4200'],
+    origin: ['https://hoppscotch.io', 'http://localhost:4200'],
   },
 };
 
@@ -37,10 +37,8 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('message')
   async handleMessage(socket: Socket) {
     try {
-      const decodedToken = await this.authService.verifyJwt(socket.handshake.headers.authorization);
+      const decodedToken = await this.authService.verifyJwt(socket.handshake.auth.token);
       const user = await this.userService.getOne(decodedToken.user.id);
-
-     
 
       if (!user) {
         return this.disconnect(socket);
@@ -66,10 +64,9 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
             message: 'this is a user tab'
           });
         }
-       
       }
-    } catch {
-
+    } catch (err) {
+      console.log(err);
     }
   }
 
