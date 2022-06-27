@@ -49,7 +49,7 @@ export default function SignUp() {
         selectRole,
       };
       registerUser(userData);
-      // navigate("/sign-in", { replace: true });
+      navigate("/sign-in", { replace: true });
     }
   };
 

@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../services/signIn";
 import { isEmailValidation } from "../../../utils/constant/email_validation";
 import { isPasswordValidation } from "../../../utils/constant/password_validation";
@@ -10,22 +11,24 @@ export default function SignIn() {
   const [isEmailValid, setIsEmailValid] = useState<boolean | undefined>(false);
   const [emailValue, setEmailValue] = useState<string>();
   const [passwordValue, setPasswordValue] = useState<string>();
-  
+
+  const navigate = useNavigate();
+
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-      if(isPassValid && isEmailValid) {
-        const userData = {
-          emailValue,
-          passwordValue,
-        };
-         
-        loginUser(userData).then(res => {
-          if(res && res.status === 200) {
-            // redirect to main page
-          }
-        });
-        
-      }
+    if (isPassValid && isEmailValid) {
+      const userData = {
+        emailValue,
+        passwordValue,
+      };
+
+      loginUser(userData).then((res) => {
+        if (res && res.status === 200) {
+          localStorage.setItem("accessToken", res.data);
+          navigate("/guest", { replace: true });
+        }
+      });
+    }
   };
 
   const validateEmail = (event: any) => {
@@ -44,20 +47,29 @@ export default function SignIn() {
     setIsPassValid(isValid);
   };
 
-
   return (
     <div className="sign_in_container">
       <div className="sign_in_box">
         <h2>Sign In</h2>
         <form onSubmit={handleSubmitForm}>
           <label htmlFor="email">
-            <input type="email" id="email" placeholder="Enter email"  value={emailValue}
-              onChange={validateEmail}/>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter email"
+              value={emailValue}
+              onChange={validateEmail}
+            />
             <p className="invalid_text"></p>
           </label>
           <label htmlFor="password">
-            <input type="text" id="passwords" placeholder="Enter password" value={passwordValue}
-            onChange={validatePassword}/>
+            <input
+              type="text"
+              id="passwords"
+              placeholder="Enter password"
+              value={passwordValue}
+              onChange={validatePassword}
+            />
             <p className="invalid_text"></p>
           </label>
           <button>Submit</button>
