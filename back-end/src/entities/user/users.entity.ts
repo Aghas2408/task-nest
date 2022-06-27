@@ -1,6 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, BeforeInsert } from 'typeorm';
-import { Role } from '../role/role.entity';
-import { UserController } from './user.controller';
 
 export enum UserRole {
   ADMIN = 'admin',
