@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../services/signIn";
-import { socket } from "../../../socket/socketClient";
+import { getData } from "../../../socket/socketClient";
 import { isEmailValidation } from "../../../utils/constant/email_validation";
 import { isPasswordValidation } from "../../../utils/constant/password_validation";
 
@@ -27,8 +27,7 @@ export default function SignIn() {
         if (res && res.status === 200) {
           localStorage.setItem("accessToken", res.data);
 
-          socket.emit('message');
-          socket.on('messages', (res) => {
+          getData().then(res => {
             navigate("/guest", { replace: true });
             window.location.reload();
           })
