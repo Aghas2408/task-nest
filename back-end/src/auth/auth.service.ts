@@ -7,25 +7,21 @@ const bcrypt = require('bcrypt');
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async generateJWT(user: User) {
-    return await this.jwtService.signAsync({
+  async generateJWT(user: User): Promise<string> {
+    return this.jwtService.signAsync({
       user: user,
     });
   }
 
-  hashPassword(password: string): string {
+  async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, 12);
   }
 
-  comparePassword(password: string, storedPasswordHash: string) {
+  comparePassword(password: string, storedPasswordHash: string): boolean {
     return bcrypt.compare(password, storedPasswordHash);
   }
 
-  signup() {
-    return 'I am signed up';
-  }
-
-  signin() {
-    return 'I am sign in';
+  verifyJwt(jwt: string): Promise<any> {
+    return this.jwtService.verifyAsync(jwt);
   }
 }

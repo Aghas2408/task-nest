@@ -80,4 +80,8 @@ export class UserService {
 
     return user ? true : false;
   }
+
+  public async getOne(id: number): Promise<User> {
+    return this.userRepository.findOneByOrFail({ id });
+  }
 }

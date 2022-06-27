@@ -8,6 +8,8 @@ import { AuthService } from './auth/auth.service';
 import { RoleController } from './entities/role/role.controller';
 import { UserModule } from './entities/user/user.module';
 import { User } from './entities/user/users.entity';
+import { SocketGateway } from './web-socket/gateway/web-socket.gateway';
+import { WebSocketModule } from './web-socket/web-socket.module';
 
 @Module({
   imports: [
@@ -26,9 +28,10 @@ import { User } from './entities/user/users.entity';
     }),
     UserModule,
     AuthModule,
-    JwtModule
+    JwtModule,
+    WebSocketModule
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, SocketGateway],
 })
 export class AppModule {}
